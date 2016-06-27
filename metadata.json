@@ -1,0 +1,15 @@
+{
+  "name": "arin-scl",
+  "version": "0.1.0",
+  "author": "Jacob Castello",
+  "summary": "This is a module to install and manage scl packages and environments",
+  "license": "Apache-2.0",
+  "source": "github.com/arineng",
+  "project_page": "https://github.com/arineng",
+  "issues_url": "https://github.com/arineng/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
