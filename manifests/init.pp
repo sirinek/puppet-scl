@@ -52,8 +52,10 @@ class scl (
   String $repo_url_rh = $scl::params::repo_url_rh,
   String $repo_gpg_key = $scl::params::repo_gpg_key,
   String $os_maj_release = $scl::params::os_maj_release,
-  Array $scl_packages = [],
-  Array $scl_shebangs = $scl_packages
+  Array $scl_packages = [ 'rh-ruby22', 'ruby193'], #replace me in hiera/params
+  Array $scl_shebangs = $scl_packages,
+  Boolean $include_ruby_gem = true,
+  Boolean $include_ruby_devel = true
 ) inherits scl::params {
 
   if $manage_repos == true {
@@ -75,6 +77,7 @@ class scl (
       gpgkey   => $repo_gpg_key,
     }
 
+    # Storing the scl gpg key in this module
     file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo':
       ensure => present,
       owner  => 'root',
@@ -83,20 +86,6 @@ class scl (
       source => 'puppet:///modules/scl/RPM-GPG-KEY-CentOS-SIG-SCLo',
       notify => Exec['import-scl-gpg-key'],
     }
-
-    # This shebang line is
-    # the over-arching 'enable'
-    # needed for all other 
-    # package shebangs
-    file { 'scl-shebang':
-      ensure  => file,
-      path    => '/usr/local/bin/scl-shebang',
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0755',
-      content => template('scl/scl-shebang.erb'),
-    }
-
     # Manage the gpg key via the file
     # in this module
     exec { 'import-scl-gpg-key':
@@ -109,5 +98,23 @@ class scl (
     }
   }
 
-  scl::shebang { $scl_shebangs: }
+  # This shebang line is
+  # the over-arching 'enable'
+  # needed for all other 
+  # package shebangs
+  file { 'scl-shebang':
+    ensure  => file,
+    path    => '/usr/local/bin/scl-shebang',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('scl/scl-shebang.erb'),
+  }
+
+  
+  # Probably need to scope the flag for this
+  # in some way since python is in the works
+  scl::ruby { $scl_packages: 
+    require => Yumrepo['CentOS-SCLo-scl-rh', 'CentOS-SCLo-scl']
+  }
 }
