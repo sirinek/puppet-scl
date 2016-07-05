@@ -5,8 +5,8 @@
 define scl::gem (
   String $scl_gem_long = $name,
   String $scl_gem_type = undef,
-  String $scl_gem_ensure = 'present',
-  String $scl_gem_source = 'http://rubygems.org'
+  String $ensure = 'present',
+  String $source = 'http://rubygems.org'
 ) {
 
   $scl_gem_name = regsubst( $scl_gem_long, "-${scl_gem_type}", '', 'G')
@@ -14,9 +14,9 @@ define scl::gem (
   $scl_gem_provider = regsubst( $scl_gem_type, '-', '_', 'G')
 
   package { $scl_gem_long:
-    ensure   => $scl_gem_ensure,
+    ensure   => $ensure,
     name     => $scl_gem_name,
     provider => "${scl_gem_provider}_gem",
-    source   => $scl_gem_source,
+    source   => $source,
   }
 }
