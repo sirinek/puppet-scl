@@ -10,12 +10,10 @@ define scl::shebang (
 ) {
   exec { "scl-shebang-${name}":
     path        => '/bin:/usr/bin',
-    command     => "echo ${shebang_content} > ${shebang_file} && chmod +x ${shebang_file}",
+    command     => "echo '${shebang_content}' > ${shebang_file} && chmod +x ${shebang_file}",
     onlyif      => "scl -l | grep -v ${name}",
     unless      => "test -x ${shebang_file}",
     require     => [ Package[$name], File['scl-shebang'] ],
-    subscribe   => Package[$name],
-    refreshonly => true,
   }
 
 }
