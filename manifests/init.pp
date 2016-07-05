@@ -6,30 +6,12 @@
 # Parameters
 # ----------
 #
-# Document parameters here.
-#
-# * `sample parameter`
-# Explanation of what this parameter affects and what it defaults to.
-# e.g. "Specify one or more upstream ntp servers as an array."
-#
-# Variables
-# ----------
-#
-# Here you should define a list of variables that this module would require.
-#
-# * `sample variable`
-#  Explanation of how this variable affects the function of this class and if
-#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#  External Node Classifier as a comma separated list of hostnames." (Note,
-#  global variables should be avoided in favor of class parameters as
-#  of Puppet 2.6.)
-#
 # Examples
 # --------
 #
 # @example
 #    class { 'scl':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#      rubies => [ 'rh-ruby22', 'ruby193' ],
 #    }
 #
 # Authors
@@ -40,7 +22,7 @@
 # Copyright
 # ---------
 #
-# Copyright 2016 Your name here, unless otherwise noted.
+# Copyright 2016 Jacob Castello, unless otherwise noted.
 #
 class scl (
   Boolean $manage_repos = true,
@@ -52,8 +34,8 @@ class scl (
   String $repo_url_rh = $scl::params::repo_url_rh,
   String $repo_gpg_key = $scl::params::repo_gpg_key,
   String $os_maj_release = $scl::params::os_maj_release,
-  Array $scl_packages = [ 'rh-ruby22', 'ruby193'], #replace me in hiera/params
-  Array $scl_shebangs = $scl_packages,
+  $rubies = $scl::params::rubies,
+  $pythons = $scl::params::pythons,
   Boolean $include_ruby_gem = true,
   Boolean $include_ruby_devel = true,
   String $gem_source = $scl::params::gem_source
@@ -100,8 +82,8 @@ class scl (
   }
 
   # This shebang line is
-  # the over-arching 'enable'
-  # needed for all other 
+  # the overarching 'enable'
+  # needed for all other
   # package shebangs
   file { 'scl-shebang':
     ensure  => file,
@@ -115,7 +97,19 @@ class scl (
   
   # Probably need to scope the flag for this
   # in some way since python is in the works
-  scl::ruby { $scl_packages: 
-    require => Yumrepo['CentOS-SCLo-scl-rh', 'CentOS-SCLo-scl']
+  if $rubies != undef {
+    validate_array($rubies)
+
+    scl::ruby { $rubies:
+      require => Yumrepo['CentOS-SCLo-scl-rh', 'CentOS-SCLo-scl'],
+    }
+  }
+
+  if $pythons != undef {
+    validate_array($pythons)
+
+    scl::python { $pythons:
+      require => Yumrepo['CentOS-SCLo-scl-rh', 'CentOS-SCLo-scl'],
+    }
   }
 }
