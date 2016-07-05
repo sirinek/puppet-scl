@@ -7,4 +7,5 @@ class scl::params {
   $repo_present_rh = present
   $repo_url_rh = "http://mirror.centos.org/centos/${os_maj_release}/sclo/\$basearch/rh/"
   $repo_gpg_key = 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo'
+  $gem_source = 'http://rubygems.org'
 }

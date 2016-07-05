@@ -9,8 +9,15 @@
 define scl::ruby (
   String $scl_ruby_package = $title,
   Boolean $include_ruby_devel = $scl::include_ruby_devel,
-  Boolean $include_ruby_gem = $scl::include_ruby_gem
-){
+  Boolean $include_ruby_gem = $scl::include_ruby_gem,
+  String $gem_source = $scl::gem_source,
+  $gem_hash = hiera_hash("scl::${scl_ruby_package}::gems", {
+    'json'  => {
+      'scl_gem_ensure' => '1.8.3',
+      }
+    }
+  )
+) {
   package { $scl_ruby_package:
     ensure  => present,
   }
@@ -38,5 +45,20 @@ define scl::ruby (
     package { $devel_packages:
       ensure => present,
     }
+  }
+
+  if $gem_hash != undef {
+
+    validate_hash($gem_hash)
+
+    $gem_defaults = {
+      'scl_gem_type'   => $scl_ruby_package,
+      'scl_gem_ensure' => 'present',
+      'scl_gem_source' => $gem_source,
+    }
+
+    $_gem_hash = suffix($gem_hash, "-${scl_ruby_package}")
+
+    create_resources(scl::gem, $_gem_hash, $gem_defaults)
   }
 }

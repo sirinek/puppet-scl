@@ -55,7 +55,8 @@ class scl (
   Array $scl_packages = [ 'rh-ruby22', 'ruby193'], #replace me in hiera/params
   Array $scl_shebangs = $scl_packages,
   Boolean $include_ruby_gem = true,
-  Boolean $include_ruby_devel = true
+  Boolean $include_ruby_devel = true,
+  String $gem_source = $scl::params::gem_source
 ) inherits scl::params {
 
   if $manage_repos == true {

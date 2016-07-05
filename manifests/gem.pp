@@ -1,17 +1,22 @@
+# Create the individual
+# gems from scl::ruby, using the
+# appropriate gem provider and
+# a unique resource name
 define scl::gem (
-  String $scl_ruby_package = $title
-){
-  package { "${scl_ruby_package}-ruby-devel":
-    ensure => present,
-  }
-  
-  file { "scl-shebang-gem-${scl_ruby_package}":
-    ensure  => file,
-    path    => "/usr/local/bin/scl-shebang-gem-${scl_ruby_package}",
-    owner   => 'root',
-    group   => 'root',
-    content => template('scl/scl-shebang-gem.erb'),
-    mode    => '0755',
-    require => [ File['scl-shebang'], Package["${scl_ruby_package}-ruby-devel"] ], 
+  String $scl_gem_long = $name,
+  String $scl_gem_type = undef,
+  String $scl_gem_ensure = 'present',
+  String $scl_gem_source = 'http://rubygems.org'
+) {
+
+  $scl_gem_name = regsubst( $scl_gem_long, "-${scl_gem_type}", '', 'G')
+
+  $scl_gem_provider = regsubst( $scl_gem_type, '-', '_', 'G')
+
+  package { $scl_gem_long:
+    ensure   => $scl_gem_ensure,
+    name     => $scl_gem_name,
+    provider => "${scl_gem_provider}_gem",
+    source   => $scl_gem_source,
   }
 }
