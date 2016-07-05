@@ -50,4 +50,7 @@ crashlytics-build.properties
 spec/fixtures
 spec/reports
 
+# Bundle paths
+vendor
+.bundle
 # Created by .ignore support plugin (hsz.mobi)
