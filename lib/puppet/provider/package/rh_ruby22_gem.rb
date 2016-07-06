@@ -7,5 +7,5 @@ Puppet::Type.type(:package).provide(:rh_ruby22_gem, :parent => :gem) do
 
   has_feature :versionable, :install_options
 
-  commands :gemcmd => "/usr/local/bin/scl-shebang-gem-rh-ruby22"
+  commands :gemcmd => "/usr/bin/scl enable rh-ruby22 -- gem"
 end

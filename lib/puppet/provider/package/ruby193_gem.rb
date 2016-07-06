@@ -8,6 +8,6 @@ Puppet::Type.type(:package).provide(:ruby193_gem, :parent => :gem) do
 
   has_feature :versionable, :install_options
 
-  commands :gemcmd => "/usr/local/bin/scl-shebang-gem-ruby193"
+  commands :gemcmd => "/usr/bin/scl enable ruby193 -- gem"
 
 end
