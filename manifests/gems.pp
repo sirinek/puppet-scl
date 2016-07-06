@@ -17,7 +17,7 @@ define scl::gems (
     ensure   => $ensure,
     provider => "${scl_gem_provider}_gem",
     source   => $source,
-    require  => Package["${scl_gem_provider}-rubygems"],
+    require  => Package["${scl_ruby_version}-rubygems"],
   }
 
   ensure_packages($scl_gem_long, $gem_defaults)
