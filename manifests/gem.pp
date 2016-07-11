@@ -12,10 +12,11 @@ define scl::gem (
   $scl_gem_name = regsubst($name, "-${scl_ruby_version}", '')
 
   package { $name:
-    ensure   => $ensure,
-    name     => $scl_gem_name,
-    provider => "${scl_gem_provider}_gem",
-    source   => $source,
-    require  => Package["${scl_ruby_version}-rubygems"],
+    ensure          => $ensure,
+    name            => $scl_gem_name,
+    provider        => "${scl_gem_provider}_gem",
+    source          => $source,
+    install_options => [ '--no-rdoc', '--no-ri'],
+    require         => Package["${scl_ruby_version}-rubygems"],
   }
 }
