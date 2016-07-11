@@ -9,10 +9,11 @@ define scl::gem (
 ){
 
   $scl_gem_provider = regsubst( $scl_ruby_version, '-', '_', 'G')
+  $scl_gem_name = regsubst($name, "-${scl_ruby_version}", '')
 
   package { $name:
     ensure   => $ensure,
-    name     => regsubst($name, "-${scl_ruby_version}", ''),
+    name     => $scl_gem_name,
     provider => "${scl_gem_provider}_gem",
     source   => $source,
     require  => Package["${scl_ruby_version}-rubygems"],
