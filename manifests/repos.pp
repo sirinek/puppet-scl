@@ -14,13 +14,13 @@
 #
 class scl::repos (
   Boolean $repo_enabled_sclo = $scl::repo_enabled_sclo,
-  String $repo_present_sclo = $scl::repo_present_sclo,
-  String $repo_url_sclo = $scl::repo_url_sclo,
-  Boolean $repo_enabled_rh = $scl::repo_enabled_rh,
-  String $repo_present_rh = $scl::repo_present_rh,
-  String $repo_url_rh = $scl::repo_url_rh,
-  String $repo_gpg_key = $scl::repo_gpg_key,
-  String $os_maj_release = $scl::os_maj_release
+  String $repo_present_sclo  = $scl::repo_present_sclo,
+  String $repo_url_sclo      = $scl::repo_url_sclo,
+  Boolean $repo_enabled_rh   = $scl::repo_enabled_rh,
+  String $repo_present_rh    = $scl::repo_present_rh,
+  String $repo_url_rh        = $scl::repo_url_rh,
+  String $repo_gpg_key       = $scl::repo_gpg_key,
+  String $os_maj_release     = $scl::os_maj_release
 ) {
 
   yumrepo { 'CentOS-SCLo-scl':
