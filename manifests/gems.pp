@@ -11,15 +11,10 @@ define scl::gems (
 
   $scl_gem_long = suffix( $scl_gems, "-${scl_ruby_version}")
 
-  $scl_gem_provider = regsubst( $scl_ruby_version, '-', '_', 'G')
-
-  $gem_defaults = {
-    ensure   => $ensure,
-    provider => "${scl_gem_provider}_gem",
-    source   => $source,
-    require  => Package["${scl_ruby_version}-rubygems"],
+  $defaults = {
+    'ensure'           => present,
+    'scl_ruby_version' => $scl_ruby_version,
   }
 
-  ensure_packages($scl_gem_long, $gem_defaults)
-
+  create_resources( scl::gem, $scl_gem_long, $defaults)
 }
