@@ -4,6 +4,7 @@
 #
 define scl::gem (
   String $scl_ruby_version,
+  String $source,
   String $ensure = 'present',
 ){
 
@@ -13,6 +14,7 @@ define scl::gem (
     ensure   => $ensure,
     name     => regsubst($name, "-${scl_ruby_version}", ''),
     provider => "${scl_gem_provider}_gem",
+    source   => $source,
     require  => Package["${scl_ruby_version}-rubygems"],
   }
 }

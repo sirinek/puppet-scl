@@ -14,6 +14,7 @@ define scl::gems (
   $defaults = {
     'ensure'           => present,
     'scl_ruby_version' => $scl_ruby_version,
+    'source'           => $source,
   }
 
   create_resources( scl::gem, $scl_gem_long, $defaults)
