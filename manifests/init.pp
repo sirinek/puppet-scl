@@ -25,20 +25,18 @@
 # Copyright 2016 Jacob Castello, unless otherwise noted.
 #
 class scl (
-  Boolean $manage_repos       = true,
-  Boolean $repo_enabled_sclo  = $scl::params::repo_enabled_sclo,
-  String $repo_present_sclo   = $scl::params::repo_present_sclo,
-  String $repo_url_sclo       = $scl::params::repo_url_sclo,
-  Boolean $repo_enabled_rh    = $scl::params::repo_enabled_rh,
-  String $repo_present_rh     = $scl::params::repo_present_rh,
-  String $repo_url_rh         = $scl::params::repo_url_rh,
-  String $repo_gpg_key        = $scl::params::repo_gpg_key,
-  String $os_maj_release      = $scl::params::os_maj_release,
-  $packages                   = $scl::params::packages,
-  Boolean $include_ruby_gem   = true,
-  Boolean $include_ruby_devel = true,
-  String $gem_source          = $scl::params::gem_source,
-  $shebangs                   = $scl::params::shebangs
+  Boolean $manage_repos      = true,
+  Boolean $repo_enabled_sclo = $scl::params::repo_enabled_sclo,
+  String $repo_present_sclo  = $scl::params::repo_present_sclo,
+  String $repo_url_sclo      = $scl::params::repo_url_sclo,
+  Boolean $repo_enabled_rh   = $scl::params::repo_enabled_rh,
+  String $repo_present_rh    = $scl::params::repo_present_rh,
+  String $repo_url_rh        = $scl::params::repo_url_rh,
+  String $repo_gpg_key       = $scl::params::repo_gpg_key,
+  String $os_maj_release     = $scl::params::os_maj_release,
+  $packages                  = $scl::params::packages,
+  String $gem_source         = $scl::params::gem_source,
+  $shebangs                  = $scl::params::shebangs
 ) inherits scl::params {
 
   if $manage_repos == true {
