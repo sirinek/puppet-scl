@@ -9,11 +9,10 @@ Puppet::Type.type(:package).provide :rh_ruby22_gem, :parent => Puppet::Provider:
 
   has_feature :versionable, :install_options, :uninstall_options
 
-  commands :gemcmd => "scl"
-  $command_array = [command(:scl), "enable", "rh-ruby22", "--", "gem"]
+  commands :scl => "scl"
 
   def self.gemlist(options)
-    gem_list_command = $command_array << "list"
+    gem_list_command = [command(:scl), 'enable', 'rh-ruby22', '--', 'gem', 'list']
 
     if options[:local]
       gem_list_command << "--local"
@@ -86,7 +85,7 @@ Puppet::Type.type(:package).provide :rh_ruby22_gem, :parent => Puppet::Provider:
   end
 
   def install(useversion = true)
-    command = $command_array << "install"
+    command = [command(:scl), 'enable', 'rh-ruby22', '--', 'gem', 'install']
     command << "-v" << resource[:ensure] if (! resource[:ensure].is_a? Symbol) and useversion
 
     if source = resource[:source]
@@ -139,7 +138,7 @@ Puppet::Type.type(:package).provide :rh_ruby22_gem, :parent => Puppet::Provider:
   end
 
   def uninstall
-    command = $command_array << "uninstall"
+    command = command = [command(:scl), 'enable', 'rh-ruby22', '--', 'gem', 'uninstall']
     command << "--executables" << "--all" << resource[:name]
 
     command += uninstall_options if resource[:uninstall_options]
