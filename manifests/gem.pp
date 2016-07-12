@@ -1,5 +1,4 @@
-# A helper define to retain unique
-# gem package names, but install
+# A helper define to retain unique gem package names, but install
 # them with different versions of ruby
 #
 define scl::gem (
