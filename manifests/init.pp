@@ -51,7 +51,7 @@ class scl (
     ensure  => file,
     path    => '/usr/local/bin/scl-shebang',
     owner   => 'root',
-    group   => 'root',
+    group   => '0',
     mode    => '0755',
     content => template('scl/scl-shebang.erb'),
   }
