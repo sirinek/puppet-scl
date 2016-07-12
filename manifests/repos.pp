@@ -43,7 +43,7 @@ class scl::repos (
 
   # Storing the scl gpg key in this module
   file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo':
-    ensure => present,
+    ensure => file,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
