@@ -1,7 +1,7 @@
-# Create the individual
-# gems from scl::ruby, using the
-# appropriate gem provider and
-# a unique resource name
+#
+# Create the individual gems from scl::ruby, using the appropriate 
+# gem provider and a unique resource name
+#
 define scl::gems (
   String $scl_ruby_version = undef,
   Hash $scl_gems           = hiera("scl::${scl_ruby_version}::gems", {}),

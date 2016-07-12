@@ -1,7 +1,6 @@
-# Manage the repos necessary for SCL
-# this class should enable a user to
-# declare the baseurl explicitly for
-# scl repositories rather than rely
+#
+# Manage the repos necessary for SCL this class should enable a user to
+# declare the baseurl explicitly for scl repositories rather than rely
 # only on the packages' configs
 #
 # example
