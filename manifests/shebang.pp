@@ -9,7 +9,7 @@
 # creates the file '/usr/local/bine/scl-shebang-ruby193'
 #
 define scl::shebang (
-  String $scl_package = $name
+  String $scl_package = $name,
 ) {
 
   file { "scl-shebang-${name}":
