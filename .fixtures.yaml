@@ -1,0 +1,9 @@
+fixtures:
+  symlinks:
+    scl: "#{source_dir}"
+  repositories:
+    'stdlib':
+      repositories:
+        'stdlib':
+          repo: 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
+          ref: '2a75ed0'
