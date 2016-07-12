@@ -1,21 +1,23 @@
-# Creates the necessary hashbang
-# file for the relevant installed
+#
+# Creates the necessary hashbang file for the relevant installed
 # packages
 #
-# ex. ruby193 creates /usr/local/bin/scl-shebang-ruby193
+# example
+# -------
+# scl::shebang { 'ruby193': }
+#
+# creates the file '/usr/local/bine/scl-shebang-ruby193'
 #
 define scl::shebang (
-  $shebang_content = "#!/usr/local/bin/scl-shebang enable ${name} -- bash\n\$@",
-  $shebang_file = "/usr/local/bin/scl-shebang-${name}"
+  String $scl_package = $name,
 ) {
-  exec { "scl-shebang-${name}":
-    path        => '/bin:/usr/bin',
-    command     => "echo ${shebang_content} > ${shebang_file} && chmod +x ${shebang_file}",
-    onlyif      => "scl -l | grep -v ${name}",
-    unless      => "test -x ${shebang_file}",
-    require     => [ Package[$name], File['scl-shebang'] ],
-    subscribe   => Package[$name],
-    refreshonly => true,
-  }
 
+  file { "scl-shebang-${name}":
+    ensure  => file,
+    path    => "/usr/local/bin/scl-shebang-${name}",
+    owner   => 'root',
+    group   => '0',
+    mode    => '0755',
+    content => template('scl/scl-shebang-package.erb'),
+  }
 }
