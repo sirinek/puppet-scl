@@ -36,7 +36,7 @@ class scl (
   String $os_maj_release     = $scl::params::os_maj_release,
   $packages                  = $scl::params::packages,
   String $gem_source         = $scl::params::gem_source,
-  $shebangs                  = $scl::params::shebangs
+  $shebangs                  = $scl::params::shebangs,
 ) inherits scl::params {
 
   if $manage_repos == true {
