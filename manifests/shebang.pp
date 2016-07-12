@@ -1,15 +1,15 @@
-# Creates the necessary hashbang
-# file for the relevant installed
+#
+# Creates the necessary hashbang file for the relevant installed
 # packages
 #
 # example
 # -------
 # scl::shebang { 'ruby193': }
 #
-# creates the file '/usr/local/bine/scl-shebang-ruby193
+# creates the file '/usr/local/bine/scl-shebang-ruby193'
 #
 define scl::shebang (
-  $scl_package = $name
+  String $scl_package = $name
 ) {
 
   file { "scl-shebang-${name}":
