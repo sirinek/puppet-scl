@@ -19,7 +19,7 @@ class scl::repos (
   String $repo_present_rh    = $scl::repo_present_rh,
   String $repo_url_rh        = $scl::repo_url_rh,
   String $repo_gpg_key       = $scl::repo_gpg_key,
-  String $os_maj_release     = $scl::os_maj_release
+  String $os_maj_release     = $scl::os_maj_release,
 ) {
 
   yumrepo { 'CentOS-SCLo-scl':
@@ -44,7 +44,7 @@ class scl::repos (
   file { '/etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo':
     ensure => file,
     owner  => 'root',
-    group  => 'root',
+    group  => '0',
     mode   => '0644',
     source => 'puppet:///modules/scl/RPM-GPG-KEY-CentOS-SIG-SCLo',
     notify => Exec['import-scl-gpg-key'],

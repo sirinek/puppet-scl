@@ -18,6 +18,6 @@ define scl::shebang (
     owner   => 'root',
     group   => '0',
     mode    => '0755',
-    content => template('scl/scl-shebang-package.erb')
+    content => template('scl/scl-shebang-package.erb'),
   }
 }
