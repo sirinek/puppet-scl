@@ -13,6 +13,8 @@ describe 'scl::gems' do
       },
     }
   end
+  it { is_expected.to contain_scl__gem('json-rh-ruby22') }
+  it { is_expected.to contain_scl__gem('daemons-rh-ruby22') }
 
   it do
     is_expected.to contain_package('json-rh-ruby22').with({

@@ -9,8 +9,12 @@ describe 'scl' do
     }}
 
 
-    it { should compile }
-    it { should contain_class('scl::repos') }
+    it { is_expected.to compile }
+    it { is_expected.to contain_class('scl') }
+    it { is_expected.to contain_class('scl::repos') }
+    it { is_expected.to contain_class('scl::params') }
+    it { is_expected.to contain_exec('import-scl-gpg-key') }
+
 
     it do
       is_expected.to contain_file('scl-shebang').with({
@@ -39,6 +43,11 @@ describe 'scl' do
       }
     end
 
+    it { is_expected.to contain_scl__package('rh-ruby22') }
+    it { is_expected.to contain_scl__package('ruby193') }
+    it { is_expected.to contain_scl__shebang('rh-ruby22') }
+    it { is_expected.to contain_scl__shebang('ruby193') }
+
     it do
       is_expected.to contain_package('rh-ruby22').with({
         'ensure' => 'present',
@@ -50,5 +59,8 @@ describe 'scl' do
         'ensure' => 'present',
         })
     end
+
+    it { is_expected.to contain_file('scl-shebang-rh-ruby22') }
+    it { is_expected.to contain_file('scl-shebang-ruby193') }
   end
 end
