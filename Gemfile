@@ -8,6 +8,8 @@ gem 'puppet-lint', '>= 1.1.0'
 gem 'facter', '>= 1.7.0'
 gem 'rspec-puppet'
 gem 'git'
+gem 'beaker'
+gem 'beaker-rspec'
 
 # rspec must be v2 for ruby 1.8.7
 if RUBY_VERSION >= '1.8.7' && RUBY_VERSION < '1.9'

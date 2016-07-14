@@ -1,0 +1,8 @@
+HOSTS:
+  scl:
+    roles:
+      - master
+      - agent
+    platform: el-6-x86_64
+    hypervisor: vagrant
+    box: smbambling/centos6_64
