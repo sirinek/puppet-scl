@@ -10,6 +10,10 @@ gem 'rspec-puppet'
 gem 'git'
 gem 'beaker'
 gem 'beaker-rspec'
+gem 'beaker-puppet_install_helper', :require => false
+gem 'rspec-puppet-facts'
+gem 'serverspec'
+gem 'beaker-hostgenerator'
 
 # rspec must be v2 for ruby 1.8.7
 if RUBY_VERSION >= '1.8.7' && RUBY_VERSION < '1.9'
