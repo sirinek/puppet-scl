@@ -35,3 +35,7 @@ spec/reports
 # Bundle paths
 vendor
 .bundle
+
+# beaker test ignores
+.vagrant
+log
