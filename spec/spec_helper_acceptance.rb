@@ -1,10 +1,4 @@
-# consul/spec/spec_helper_acceptance.rb
 require 'beaker-rspec'
-
-# Not needed for this example as our docker files have puppet installed already
-#hosts.each do |host|
-#  # Install Puppet #  install_puppet
-#end
 
 RSpec.configure do |c|
   # Project root
@@ -19,7 +13,6 @@ RSpec.configure do |c|
     puppet_module_install(:source => proj_root, :module_name => 'scl')
     hosts.each do |host|
       # Need git to fetch our modules, they're not on the forge
-      apply_manifest_on(host, 'package { "git": }')
       modulepath = host.puppet['modulepath']
       modulepath = modulepath.split(':').first if modulepath
 
@@ -27,8 +20,10 @@ RSpec.configure do |c|
       environmentpath = environmentpath.split(':').first if environmentpath
 
       destdir = modulepath || "#{environmentpath}/production/modules"
-      on host, "git clone https://github.com/smbambling/bambling-yumrepo.git #{destdir}/yumrepo"
-      on host, puppet('module', 'install', 'puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
+
+      apply_manifest_on(host, 'package { "git": }')
+      on host, "git clone https://github.com/puppetlabs/puppetlabs-stdlib #{destdir}/stdlib && cd #{destdir}/stdlib && git checkout 4.12.0"
+
     end
   end
 end
