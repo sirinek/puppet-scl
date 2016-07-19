@@ -1,3 +1,4 @@
+---
 fixtures:
   symlinks:
     scl: "#{source_dir}"

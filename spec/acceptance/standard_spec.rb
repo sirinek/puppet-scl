@@ -12,11 +12,11 @@ describe 'scl class' do
 
       scl::gems { 'rh-ruby22-gems':
         scl_ruby_version => 'rh-ruby22',
-        scl_gems => { 
+        scl_gems => {
           daemons => {},
           },
         }
-        
+
       scl::gems { 'ruby193-gems':
         scl_ruby_version => 'ruby193',
         scl_gems => {
@@ -47,7 +47,7 @@ describe 'scl class' do
           expect(result.stdout).to match(/daemons \(1\.2\.2\)/)
       end
     end
-    
+
     describe package('rh-ruby22') do
         it do
             expect(subject).to be_installed
@@ -65,7 +65,7 @@ describe 'scl class' do
             expect(subject).to  be_file
         end
     end
-    
+
     describe file('/usr/local/bin/scl-shebang-rh-ruby22') do
         it "is a file" do
             expect(subject).to  be_file

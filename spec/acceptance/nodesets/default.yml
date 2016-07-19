@@ -1,3 +1,4 @@
+---
 HOSTS:
   scl:
     roles:
@@ -9,5 +10,5 @@ HOSTS:
     box: smbambling/centos6_64
     distmoduledir: /etc/puppetlabs/code/modules
 CONFIG:
-    masterless: true
-    type: aio
+  masterless: true
+  type: aio
