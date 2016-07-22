@@ -1,0 +1,14 @@
+---
+HOSTS:
+  scl:
+    roles:
+      - agent
+      - default
+      - master
+    platform: el-6-x86_64
+    hypervisor: vagrant
+    box: smbambling/centos6_64
+    distmoduledir: /etc/puppetlabs/code/modules
+CONFIG:
+  masterless: true
+  type: aio

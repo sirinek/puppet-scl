@@ -1,0 +1,11 @@
+---
+fixtures:
+  symlinks:
+    scl: "#{source_dir}"
+  repositories:
+    'stdlib':
+      repo: 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
+      ref: '2a75ed0'
+    'yumrepo':
+      repo: 'https://github.com/smbambling/bambling-yumrepo.git'
+      ref: 'f06f9b1'
