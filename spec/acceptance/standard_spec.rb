@@ -12,18 +12,18 @@ describe 'scl class' do
 
       scl::gems { 'rh-ruby22-gems':
         scl_ruby_version => 'rh-ruby22',
-        scl_gems => {
-          daemons => {},
-          },
+        scl_gems         => {
+                              daemons => {},
+                            },
         }
 
       scl::gems { 'ruby193-gems':
         scl_ruby_version => 'ruby193',
-        scl_gems => {
-          daemons => {
-            ensure => '1.2.2',
-            },
-          },
+        scl_gems         => {
+                              daemons => {
+                                ensure => '1.2.2',
+                              },
+                            },
         }
       EOS
 
