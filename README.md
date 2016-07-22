@@ -7,15 +7,14 @@
     * [What scl affects](#what-scl-affects)
     * [Beginning with scl](#beginning-with-scl)
 1. [Usage - Configuration options and additional functionality](#usage)
-  * [Software Collection Packages](#software-collection-packages)
-  * [Shebang Files](#shebang-files)
-  * [Ruby Gems](#ruby-gems)
-  * [Python Packages](#python-packages)
-1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+    * [Software Collection Packages](#software-collection-packages)
+    * [Shebang Files](#shebang-files)
+    * [Ruby Gems](#ruby-gems)
+    * [Python Packages](#python-packages)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
-  * [Spec Testing](#spec-testing)
-  * [Serverspec Testing](#serverspec-testing)
+    * [Spec Testing](#spec-testing)
+    * [Serverspec Testing](#serverspec-testing)
 
 ## Description
 A simple module designed to manage Software Collections on RedHat
@@ -85,8 +84,6 @@ scl::gems { 'wildfly_scripts gems':
 ### Python Packages
 Planned features in the future.
 
-## Reference
-
 
 ## Limitations
 
@@ -120,9 +117,3 @@ and
 bundle install --path vendor/bundle
 bundle exec rake beaker
 ```
-
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.
