@@ -5,79 +5,115 @@
 1. [Description](#description)
 1. [Setup - The basics of getting started with scl](#setup)
     * [What scl affects](#what-scl-affects)
-    * [Setup requirements](#setup-requirements)
     * [Beginning with scl](#beginning-with-scl)
 1. [Usage - Configuration options and additional functionality](#usage)
-1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+    * [Software Collection Packages](#software-collection-packages)
+    * [Shebang Files](#shebang-files)
+    * [Ruby Gems](#ruby-gems)
+    * [Python Packages](#python-packages)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
+    * [Spec Testing](#spec-testing)
+    * [Serverspec Testing](#serverspec-testing)
 
 ## Description
+A simple module designed to manage Software Collections on RedHat
+based OS.
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
+### What scl affects
 
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
+This module will add repositories to the yum repos dir
+* `/etc/yum.repos.d/`
+* RPM gpg key
 
-## Setup
-
-### What scl affects **OPTIONAL**
-
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
-
-If there's more that they should know about, though, this is the place to mention:
-
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
 
 ### Beginning with scl
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
+This module, in its most basic form will install and manage the repositories
+necessary to install Software Collections as pakcages. To do that:
+
+```
+include ::scl
+```
 
 ## Usage
 
-This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It's especially helpful if you include usage
-examples and code samples for doing things with your module.
+### Software Collection Packages
 
-## Reference
+The most effective usage of the module might be to install packages that require
+the scl repositories. The `scl` class takes a list of packages to install
+along with the collections' repositories.
 
-Here, include a complete list of your module's classes, types, providers,
-facts, along with the parameters for each. Users refer to this section (thus
-the name "Reference") to find specific details; most users don't read it per
-se.
+```
+class { 'scl':
+  packages => [ 'rh-ruby22', 'rh-ruby22-ruby-devel', 'rh-ruby22-rubygems', 'rh-ruby22-rubygems-devel' ],
+  shebangs => [ 'rh-ruby22' ],
+} ->
+```
+
+### Shebang Files
+
+The parameter `shebangs` refers to files created in `/usr/local/bin/` called `scl-shebang-[package name]`
+that can be used for inclusion in scripts. For example put the following in the shebang line of
+a script written in ruby2.2
+
+
+```
+#!/usr/local/bin/scl-shebang-rh-ruby22
+```
+
+The script will properly source all necessary environment
+variables for the desired ruby environment without having to declare
+`scl enable rh-ruby22 -- ruby my_script.rb` each time `my_script` is run.
+
+
+### Ruby Gems
+When gems are included be sure to describe the version of
+ruby to which the gems are being installed. Currently this
+module only supports `rh-ruby22` and `ruby193`.
+
+```
+scl::gems { 'wildfly_scripts gems':
+  scl_ruby_version => 'rh-ruby22',
+  scl_gems         => {
+    'daemons' => {},
+  },
+}
+```
+
+### Python Packages
+Planned features in the future.
+
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc. If there
-are Known Issues, you might want to include them under their own heading here.
+This module only works with RH-based operating systems, and has
+been tested and developed for use with CentOS.
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+Development is welcome. Be sure to include spec tests for any new features added.
 
-## Release Notes/Contributors/Etc. **Optional**
+### Spec Testing
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.
+Currently both spec and serverspec testing is supported in this module. Efforts have been
+made to streamline testing as much as possible. Spec testing should be as simple as changing
+directory to the module and
+
+```
+bundle install --path vendor/bundle
+bundle exec rake spec
+```
+
+### Serverspec Testing
+
+Beaker has been leveraged for serverspec testing. Serverspec tests are limited, and
+fairly shallow, but tend to get the job done. Vagrant is the modus of choice for testing
+this module, and a CentOS box running Puppet Enterprise 4.4.1 has already been configured
+as the default test box. Running the tests should be as simple as changing to the directory
+and
+
+```
+bundle install --path vendor/bundle
+bundle exec rake beaker
+```
