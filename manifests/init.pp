@@ -11,7 +11,7 @@
 #
 # @example
 #    class { 'scl':
-#      packages => [ 'rh-ruby22', 'ruby193' ],
+#      packages => [ 'rh-ruby22', 'rh-ruby24', 'ruby193' ],
 #    }
 #
 # Authors
